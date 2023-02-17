@@ -3,11 +3,12 @@
 <head>
     <title>My Web Form</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-FtB5C5ibyozw4klO4Narv/JDzakQ77CgATKXugrIVa//oHLC05FkKdGy63Ibzm/FpUz1EmBVlyDpU82R9YgC6Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-/FZLDDl2aMWGh2wH3t83jKQq0FgS5u9hJcbcCBpR2jRaKouFk4bP4uPbBh1WGNi6" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
         <h1 class="my-5">My Web Form</h1>
-        <form method="post">
+        <form method="post" id="my-form">
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" name="name" id="name" required>
@@ -21,3 +22,25 @@
                 <textarea class="form-control" name="message" id="message" rows="3" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        </form>
+        <div class="my-5" id="response-message" style="display: none;"></div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#my-form').submit(function(event) {
+                event.preventDefault();
+                var form_data = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: '/form',
+                    data: form_data,
+                    success: function(response) {
+                        $('#my-form').hide();
+                        $('#response-message').html(response).show();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

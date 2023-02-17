@@ -11,7 +11,7 @@ def form():
     if request.method == 'POST':
         user_data = request.form
         # Do something with user_data, such as storing it in a database
-        return render_template('thanks.html')
+       # return render_template('thanks.html')
     else:
         return render_template('form.html')
 
